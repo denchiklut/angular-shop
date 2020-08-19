@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "shop-c9232"
+  },
+  "targets": {
+    "shop-c9232": {
+      "hosting": {
+        "shop": [
+          "shop-c9232"
+        ]
+      }
+    }
   }
 }
