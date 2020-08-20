@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CustomFormsModule } from 'ng2-validation';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -28,6 +30,9 @@ import { UserService } from './user.service';
 import { AdminGuard } from './admin-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { CategoryService } from './category.service';
+import { ProductService } from './product.service';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 
 @NgModule({
@@ -43,17 +48,21 @@ import { CategoryService } from './category.service';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
     NgbModule,
+    FormsModule,
+    CustomFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
+      { path: '', component: ProductsComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
       { path: 'login', component: LoginComponent },
@@ -62,8 +71,9 @@ import { CategoryService } from './category.service';
       { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
       { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
 
-      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard, AdminGuard] },
       { path: 'admin/products/new', component: ProductFormComponent, canActivate: [AuthGuard, AdminGuard] },
+      { path: 'admin/products/:id', component: ProductFormComponent, canActivate: [AuthGuard, AdminGuard] },
+      { path: 'admin/products', component:  AdminProductsComponent, canActivate: [AuthGuard, AdminGuard] },
       { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminGuard] }
     ])
   ],
@@ -71,6 +81,7 @@ import { CategoryService } from './category.service';
     AuthService,
     UserService,
     CategoryService,
+    ProductService,
     AuthGuard,
     AdminGuard
   ],
