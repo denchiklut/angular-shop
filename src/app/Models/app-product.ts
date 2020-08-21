@@ -8,7 +8,7 @@ export interface ResourceCategory {
 }
 
 export interface Product {
-  id?: string;
+  id: string;
   title: string;
   price: number;
   category: string;

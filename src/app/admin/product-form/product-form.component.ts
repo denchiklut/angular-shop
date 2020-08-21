@@ -14,6 +14,7 @@ export class ProductFormComponent {
   id?: string;
   categories: ProductCategory[];
   product: Product = {
+    id: '',
     title: '',
     price: 0,
     category: '',
